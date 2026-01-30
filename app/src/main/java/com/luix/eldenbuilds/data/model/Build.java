@@ -1,6 +1,7 @@
 package com.luix.eldenbuilds.data.model;
 
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
@@ -27,16 +28,8 @@ public class Build implements Serializable {
     private StartingClass startingClass;
 
     private int level;
-
-    // --- Atributos (Stats) ---
-    private int vigor;
-    private int mind;
-    private int endurance;
-    private int strength;
-    private int dexterity;
-    private int intelligence;
-    private int faith;
-    private int arcane;
+    @Embedded
+    private Stats stats;
 
     // --- Equipamentos (String por enquanto, ID ref no futuro) ---
     @ColumnInfo(name = "right_hand_weapon")
