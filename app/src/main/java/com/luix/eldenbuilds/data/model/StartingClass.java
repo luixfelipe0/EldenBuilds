@@ -1,8 +1,4 @@
 package com.luix.eldenbuilds.data.model;
-
-import lombok.Getter;
-
-@Getter
 public enum StartingClass {
     VAGABOND("Vagabond"),
     WARRIOR("Warrior"),
@@ -21,4 +17,7 @@ public enum StartingClass {
         this.displayName = displayName;
     }
 
+    public String getDisplayName() {
+        return displayName;
+    }
 }

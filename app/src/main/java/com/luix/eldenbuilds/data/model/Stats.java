@@ -1,14 +1,9 @@
 package com.luix.eldenbuilds.data.model;
 
 import androidx.room.ColumnInfo;
-import java.io.Serializable;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+import java.io.Serializable;
+
 public class Stats implements Serializable {
 
     @ColumnInfo(name = "vigor")
@@ -34,4 +29,70 @@ public class Stats implements Serializable {
 
     @ColumnInfo(name = "arcane")
     private int arcane;
+
+    public int getVigor() {
+        return vigor;
+    }
+
+    public void setVigor(int vigor) {
+        this.vigor = vigor;
+    }
+
+    public int getMind() {
+        return mind;
+    }
+
+    public void setMind(int mind) {
+        this.mind = mind;
+    }
+
+    public int getEndurance() {
+        return endurance;
+    }
+
+    public void setEndurance(int endurance) {
+        this.endurance = endurance;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    public int getDexterity() {
+        return dexterity;
+    }
+
+    public void setDexterity(int dexterity) {
+        this.dexterity = dexterity;
+    }
+
+    public int getIntelligence() {
+        return intelligence;
+    }
+
+    public void setIntelligence(int intelligence) {
+        this.intelligence = intelligence;
+    }
+
+    public int getFaith() {
+        return faith;
+    }
+
+    public void setFaith(int faith) {
+        this.faith = faith;
+    }
+
+    public int getArcane() {
+        return arcane;
+    }
+
+    public void setArcane(int arcane) {
+        this.arcane = arcane;
+    }
+
+
 }
