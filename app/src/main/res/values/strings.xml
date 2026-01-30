@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">EldenBuilds</string>
+    <string name="text_level_format">Lvl %1$d</string>
+    <string name="text_class_format">Class: %1$s</string>
+    <string name="text_weapons_format">R: %1$s / L: %2$s</string>
+    <string name="unknown">Unknown</string>
+    <string name="empty_slot">-</string>
 </resources>
