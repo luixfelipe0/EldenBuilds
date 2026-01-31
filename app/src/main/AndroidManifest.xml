@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EldenBuilds">
         <activity
+            android:name=".ui.detail.AddEditBuildActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.list.MainActivity"
             android:exported="true">
             <intent-filter>

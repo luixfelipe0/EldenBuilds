@@ -6,4 +6,20 @@
     <string name="unknown">Unknown</string>
     <string name="empty_slot">-</string>
     <string name="add_build">Add Build</string>
+    <string name="hint_build_name">Nome da Build</string>
+    <string name="hint_class">Classe</string>
+    <string name="hint_level">Nível</string>
+    <string name="title_stats">Atributos</string>
+    <string name="btn_save_build">Salvar Build</string>
+
+    <string name="class_vagabond">Vagabond</string>
+
+    <string name="stat_vigor">Vigor</string>
+    <string name="stat_mind">Mente</string>
+    <string name="stat_endurance">Tenacidade</string>
+    <string name="stat_strength">Força</string>
+    <string name="stat_dexterity">Destreza</string>
+    <string name="stat_intelligence">Inteligência</string>
+    <string name="stat_faith">Fé</string>
+    <string name="stat_arcane">Arcano</string>
 </resources>
