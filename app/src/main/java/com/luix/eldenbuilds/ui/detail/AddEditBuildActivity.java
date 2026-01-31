@@ -2,7 +2,9 @@ package com.luix.eldenbuilds.ui.detail;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
@@ -26,11 +28,18 @@ public class AddEditBuildActivity extends AppCompatActivity {
     private AutoCompleteTextView spinnerClass;
     private TextInputEditText editTextLevel;
 
-    // Stats Inputs
+    // Stats
     private TextInputEditText editVigor, editMind, editEndurance, editStrength,
             editDexterity, editIntelligence, editFaith, editArcane;
 
+    // Equipment
+    private TextInputEditText editWeaponR, editWeaponL;
+    private TextInputEditText editTal1, editTal2, editTal3, editTal4;
+    private TextInputEditText editNotes;
+
     private MaterialButton buttonSave;
+
+    private StartingClass currentSelectedClass = StartingClass.VAGABOND;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +48,14 @@ public class AddEditBuildActivity extends AppCompatActivity {
 
         initViews();
         setupClassSpinner();
+        setupAutoLevelCalculation();
 
         setSupportActionBar(findViewById(R.id.topAppBar));
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
+            getSupportActionBar().setHomeAsUpIndicator(android.R.drawable.ic_menu_close_clear_cancel);
         }
+
         buttonSave.setOnClickListener(v -> saveBuild());
     }
 
@@ -62,6 +73,14 @@ public class AddEditBuildActivity extends AppCompatActivity {
         editFaith = findViewById(R.id.edit_faith);
         editArcane = findViewById(R.id.edit_arcane);
 
+        editWeaponR = findViewById(R.id.edit_weapon_r);
+        editWeaponL = findViewById(R.id.edit_weapon_l);
+        editTal1 = findViewById(R.id.edit_talisman_1);
+        editTal2 = findViewById(R.id.edit_talisman_2);
+        editTal3 = findViewById(R.id.edit_talisman_3);
+        editTal4 = findViewById(R.id.edit_talisman_4);
+        editNotes = findViewById(R.id.edit_notes);
+
         buttonSave = findViewById(R.id.button_save);
     }
 
@@ -75,40 +94,118 @@ public class AddEditBuildActivity extends AppCompatActivity {
                 android.R.layout.simple_dropdown_item_1line, classNames);
 
         spinnerClass.setAdapter(adapter);
+
+        spinnerClass.setOnItemClickListener((parent, view, position, id) -> {
+            String selection = (String) parent.getItemAtPosition(position);
+            updateBaseStatsForClass(selection);
+        });
+
         spinnerClass.setText(StartingClass.VAGABOND.getDisplayName(), false);
+        updateBaseStatsForClass(StartingClass.VAGABOND.getDisplayName());
+    }
+
+    private void updateBaseStatsForClass(String className) {
+        for (StartingClass sc : StartingClass.values()) {
+            if (sc.getDisplayName().equals(className)) {
+                currentSelectedClass = sc;
+                editVigor.setText(String.valueOf(sc.baseVigor));
+                editMind.setText(String.valueOf(sc.baseMind));
+                editEndurance.setText(String.valueOf(sc.baseEndurance));
+                editStrength.setText(String.valueOf(sc.baseStrength));
+                editDexterity.setText(String.valueOf(sc.baseDexterity));
+                editIntelligence.setText(String.valueOf(sc.baseIntelligence));
+                editFaith.setText(String.valueOf(sc.baseFaith));
+                editArcane.setText(String.valueOf(sc.baseArcane));
+
+                recalculateLevel();
+                break;
+            }
+        }
+    }
+
+    private void setupAutoLevelCalculation() {
+        TextWatcher statsWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                recalculateLevel();
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        };
+
+        editVigor.addTextChangedListener(statsWatcher);
+        editMind.addTextChangedListener(statsWatcher);
+        editEndurance.addTextChangedListener(statsWatcher);
+        editStrength.addTextChangedListener(statsWatcher);
+        editDexterity.addTextChangedListener(statsWatcher);
+        editIntelligence.addTextChangedListener(statsWatcher);
+        editFaith.addTextChangedListener(statsWatcher);
+        editArcane.addTextChangedListener(statsWatcher);
+    }
+
+    private void recalculateLevel() {
+        if (currentSelectedClass == null) return;
+
+        int vig = parseStat(editVigor, currentSelectedClass.baseVigor);
+        int min = parseStat(editMind, currentSelectedClass.baseMind);
+        int end = parseStat(editEndurance, currentSelectedClass.baseEndurance);
+        int str = parseStat(editStrength, currentSelectedClass.baseStrength);
+        int dex = parseStat(editDexterity, currentSelectedClass.baseDexterity);
+        int intl = parseStat(editIntelligence, currentSelectedClass.baseIntelligence);
+        int fai = parseStat(editFaith, currentSelectedClass.baseFaith);
+        int arc = parseStat(editArcane, currentSelectedClass.baseArcane);
+
+        int currentStatsSum = vig + min + end + str + dex + intl + fai + arc;
+
+        int calculatedLevel = getCalculatedLevel(currentStatsSum);
+
+        editTextLevel.setText(String.valueOf(calculatedLevel));
+    }
+
+    private int getCalculatedLevel(int currentStatsSum) {
+        int baseStatsSum = currentSelectedClass.baseVigor + currentSelectedClass.baseMind +
+                currentSelectedClass.baseEndurance + currentSelectedClass.baseStrength +
+                currentSelectedClass.baseDexterity + currentSelectedClass.baseIntelligence +
+                currentSelectedClass.baseFaith + currentSelectedClass.baseArcane;
+
+        int calculatedLevel = currentSelectedClass.baseLevel + (currentStatsSum - baseStatsSum);
+
+        if (calculatedLevel < currentSelectedClass.baseLevel) calculatedLevel = currentSelectedClass.baseLevel;
+        return calculatedLevel;
     }
 
     private void saveBuild() {
         String name = String.valueOf(editTextName.getText());
-        String className = String.valueOf(spinnerClass.getText());
 
         if (name.trim().isEmpty()) {
-            editTextName.setError("Please insert a name");
+            editTextName.setError("Nome obrigatório");
             return;
         }
 
-        int level = parseStat(editTextLevel);
-        int vigor = parseStat(editVigor);
-        int mind = parseStat(editMind);
-        int endurance = parseStat(editEndurance);
-        int strength = parseStat(editStrength);
-        int dexterity = parseStat(editDexterity);
-        int intelligence = parseStat(editIntelligence);
-        int faith = parseStat(editFaith);
-        int arcane = parseStat(editArcane);
-
-        StartingClass selectedClass = StartingClass.VAGABOND; // Default
-        for (StartingClass sc : StartingClass.values()) {
-            if (sc.getDisplayName().equals(className)) {
-                selectedClass = sc;
-                break;
-            }
-        }
+        int vigor = parseStat(editVigor, 0);
+        int mind = parseStat(editMind, 0);
+        int endurance = parseStat(editEndurance, 0);
+        int strength = parseStat(editStrength, 0);
+        int dexterity = parseStat(editDexterity, 0);
+        int intelligence = parseStat(editIntelligence, 0);
+        int faith = parseStat(editFaith, 0);
+        int arcane = parseStat(editArcane, 0);
+        int level = Integer.parseInt(String.valueOf(editTextLevel.getText()));
 
         Stats stats = new Stats(vigor, mind, endurance, strength, dexterity, intelligence, faith, arcane);
 
-        Build newBuild = new Build(name, selectedClass, level);
+        Build newBuild = new Build(name, currentSelectedClass, level);
         newBuild.setStats(stats);
+
+        newBuild.setRightHandWeapon(getTextSafe(editWeaponR));
+        newBuild.setLeftHandWeapon(getTextSafe(editWeaponL));
+        newBuild.setTalisman1(getTextSafe(editTal1));
+        newBuild.setTalisman2(getTextSafe(editTal2));
+        newBuild.setTalisman3(getTextSafe(editTal3));
+        newBuild.setTalisman4(getTextSafe(editTal4));
+        newBuild.setNotes(getTextSafe(editNotes));
 
         Intent data = new Intent();
         data.putExtra(EXTRA_BUILD, newBuild);
@@ -117,16 +214,20 @@ public class AddEditBuildActivity extends AppCompatActivity {
         finish();
     }
 
-    private int parseStat(TextInputEditText editText) {
+    private int parseStat(TextInputEditText editText, int fallback) {
         String value = String.valueOf(editText.getText());
         if (TextUtils.isEmpty(value)) {
-            return 0;
+            return fallback;
         }
         try {
             return Integer.parseInt(value);
         } catch (NumberFormatException e) {
-            return 0;
+            return fallback;
         }
+    }
+
+    private String getTextSafe(TextInputEditText editText) {
+        return editText.getText() != null ? editText.getText().toString().trim() : "";
     }
 
     @Override
