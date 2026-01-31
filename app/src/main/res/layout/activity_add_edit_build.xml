@@ -8,6 +8,7 @@
     tools:context=".ui.detail.AddEditBuildActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -15,8 +16,10 @@
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/add_build"
-            app:navigationIcon="@android:drawable/ic_menu_close_clear_cancel" />
+            app:layout_anchor="@+id/appBarLayout"
+            app:layout_anchorGravity="center"
+            app:navigationIcon="@android:drawable/ic_menu_close_clear_cancel"
+            app:title="@string/add_build" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -260,6 +263,72 @@
                         android:inputType="textCapWords" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Armor"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
+                android:textStyle="bold"/>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="2">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:hint="Helm">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_armor_helm"
+                        android:inputType="textCapWords"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="8dp"
+                    android:hint="Chest Armor">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_armor_chest"
+                        android:inputType="textCapWords"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_marginEnd="8dp"
+                    android:hint="Gauntlets">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_armor_hands"
+                        android:inputType="textCapWords"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:hint="Leg Armor">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_armor_legs"
+                        android:inputType="textCapWords"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </GridLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Talismans"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
+                android:textStyle="bold"/>
 
             <GridLayout
                 android:layout_width="match_parent"
