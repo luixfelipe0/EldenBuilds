@@ -34,6 +34,7 @@ public class AddEditBuildActivity extends AppCompatActivity {
 
     // Equipment
     private TextInputEditText editWeaponR, editWeaponL;
+    private TextInputEditText editHelm, editChest, editHands, editLegs;
     private TextInputEditText editTal1, editTal2, editTal3, editTal4;
     private TextInputEditText editNotes;
 
@@ -75,6 +76,10 @@ public class AddEditBuildActivity extends AppCompatActivity {
 
         editWeaponR = findViewById(R.id.edit_weapon_r);
         editWeaponL = findViewById(R.id.edit_weapon_l);
+        editHelm = findViewById(R.id.edit_armor_helm);
+        editChest = findViewById(R.id.edit_armor_chest);
+        editHands = findViewById(R.id.edit_armor_hands);
+        editLegs = findViewById(R.id.edit_armor_legs);
         editTal1 = findViewById(R.id.edit_talisman_1);
         editTal2 = findViewById(R.id.edit_talisman_2);
         editTal3 = findViewById(R.id.edit_talisman_3);
@@ -201,6 +206,10 @@ public class AddEditBuildActivity extends AppCompatActivity {
 
         newBuild.setRightHandWeapon(getTextSafe(editWeaponR));
         newBuild.setLeftHandWeapon(getTextSafe(editWeaponL));
+        newBuild.setHeadArmor(getTextSafe(editHelm));
+        newBuild.setChestArmor(getTextSafe(editChest));
+        newBuild.setHandsArmor(getTextSafe(editHands));
+        newBuild.setLegsArmor(getTextSafe(editLegs));
         newBuild.setTalisman1(getTextSafe(editTal1));
         newBuild.setTalisman2(getTextSafe(editTal2));
         newBuild.setTalisman3(getTextSafe(editTal3));
