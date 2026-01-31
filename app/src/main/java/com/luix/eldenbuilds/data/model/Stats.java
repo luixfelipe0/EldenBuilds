@@ -30,6 +30,17 @@ public class Stats implements Serializable {
     @ColumnInfo(name = "arcane")
     private int arcane;
 
+    public Stats(int vigor, int mind, int endurance, int strength, int dexterity, int intelligence, int faith, int arcane) {
+        this.vigor = vigor;
+        this.mind = mind;
+        this.endurance = endurance;
+        this.strength = strength;
+        this.dexterity = dexterity;
+        this.intelligence = intelligence;
+        this.faith = faith;
+        this.arcane = arcane;
+    }
+
     public int getVigor() {
         return vigor;
     }
