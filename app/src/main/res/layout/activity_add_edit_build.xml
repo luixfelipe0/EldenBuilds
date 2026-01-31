@@ -8,7 +8,6 @@
     tools:context=".ui.detail.AddEditBuildActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -16,10 +15,8 @@
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_anchor="@+id/appBarLayout"
-            app:layout_anchorGravity="center"
-            app:navigationIcon="@android:drawable/ic_menu_close_clear_cancel"
-            app:title="@string/add_build" />
+            app:title="@string/add_build"
+            app:navigationIcon="@drawable/ic_close" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -66,6 +63,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="none"
+                        android:focusable="false"
                         android:text="@string/class_vagabond"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -78,10 +76,10 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_text_level"
-                        android:enabled="false"
-                        android:focusable="false"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:focusable="false"
                         android:inputType="number"
                         android:maxLength="3" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -228,7 +226,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Equipment"
+                android:text="@string/section_equipment"
                 android:layout_marginBottom="8dp"
                 android:textAppearance="?attr/textAppearanceHeadline6" />
 
@@ -243,7 +241,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginEnd="8dp"
-                    android:hint="Right Hand">
+                    android:hint="@string/hint_right_hand">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_weapon_r"
                         android:layout_width="match_parent"
@@ -255,7 +253,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Left Hand">
+                    android:hint="@string/hint_left_hand">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_weapon_l"
                         android:layout_width="match_parent"
@@ -267,7 +265,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Armor"
+                android:text="@string/section_armor"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
                 android:textAppearance="?attr/textAppearanceSubtitle1"
@@ -281,50 +279,61 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:hint="Helm">
+                    android:hint="@string/hint_helm">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_armor_helm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:inputType="textCapWords"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:layout_marginBottom="8dp"
-                    android:hint="Chest Armor">
+                    android:hint="@string/hint_chest">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_armor_chest"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:inputType="textCapWords"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:layout_marginEnd="8dp"
-                    android:hint="Gauntlets">
+                    android:hint="@string/hint_hands">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_armor_hands"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:inputType="textCapWords"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:hint="Leg Armor">
+                    android:hint="@string/hint_legs">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_armor_legs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:inputType="textCapWords"/>
                 </com.google.android.material.textfield.TextInputLayout>
-
             </GridLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Talismans"
+                android:text="@string/section_talismans"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
                 android:textAppearance="?attr/textAppearanceSubtitle1"
@@ -333,39 +342,54 @@
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:columnCount="2">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:layout_marginEnd="8dp"
-                    android:hint="Talisman 1">
-                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/edit_talisman_1"/>
+                    android:hint="@string/hint_talisman_1">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_talisman_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:hint="Talisman 2">
-                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/edit_talisman_2"/>
+                    android:hint="@string/hint_talisman_2">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_talisman_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:hint="Talisman 3">
-                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/edit_talisman_3"/>
+                    android:hint="@string/hint_talisman_3">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_talisman_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:layout_marginTop="8dp"
-                    android:hint="Talisman 4">
-                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/edit_talisman_4"/>
+                    android:hint="@string/hint_talisman_4">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_talisman_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </GridLayout>
 
@@ -373,7 +397,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Notes / Strategy">
+                android:hint="@string/hint_notes">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_notes"
                     android:layout_width="match_parent"

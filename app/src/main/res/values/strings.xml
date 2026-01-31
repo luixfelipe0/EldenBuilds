@@ -22,4 +22,21 @@
     <string name="stat_intelligence">Inteligência</string>
     <string name="stat_faith">Fé</string>
     <string name="stat_arcane">Arcano</string>
+    <string name="section_equipment">Equipamento</string>
+    <string name="hint_right_hand">Mão Direita</string>
+    <string name="hint_left_hand">Mão Esquerda</string>
+
+    <string name="section_armor">Armadura</string>
+    <string name="hint_helm">Capacete</string>
+    <string name="hint_chest">Peitoral</string>
+    <string name="hint_hands">Luvas</string>
+    <string name="hint_legs">Botas</string>
+
+    <string name="section_talismans">Talismãs</string>
+    <string name="hint_talisman_1">Talismã 1</string>
+    <string name="hint_talisman_2">Talismã 2</string>
+    <string name="hint_talisman_3">Talismã 3</string>
+    <string name="hint_talisman_4">Talismã 4</string>
+
+    <string name="hint_notes">Notas / Estratégia</string>
 </resources>
