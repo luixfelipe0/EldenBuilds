@@ -16,6 +16,7 @@ import com.luix.eldenbuilds.R;
 import com.luix.eldenbuilds.data.model.Build;
 import com.luix.eldenbuilds.ui.adapter.BuildAdapter;
 import com.luix.eldenbuilds.ui.detail.AddEditBuildActivity;
+import com.luix.eldenbuilds.ui.detail.BuildDetailActivity;
 import com.luix.eldenbuilds.ui.viewmodel.BuildViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -53,8 +54,11 @@ public class MainActivity extends AppCompatActivity {
         final BuildAdapter adapter = new BuildAdapter();
         recyclerView.setAdapter(adapter);
 
-        // Listener de clique no item (apenas um log visual por enquanto)
-        adapter.setOnItemClickListener(build -> Toast.makeText(MainActivity.this, "Clicou em: " + build.getName(), Toast.LENGTH_SHORT).show());
+        adapter.setOnItemClickListener(build -> {
+            Intent intent = new Intent(MainActivity.this, BuildDetailActivity.class);
+            intent.putExtra(AddEditBuildActivity.EXTRA_BUILD, build);
+            startActivity(intent);
+        });
 
         buildViewModel = new ViewModelProvider(this).get(BuildViewModel.class);
         buildViewModel.getAllBuilds().observe(this, adapter::submitList);
