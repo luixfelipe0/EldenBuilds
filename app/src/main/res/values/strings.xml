@@ -39,4 +39,13 @@
     <string name="hint_talisman_4">Talismã 4</string>
 
     <string name="hint_notes">Notas / Estratégia</string>
+
+    <string name="title_build_details">Detalhes da Build</string>
+
+    <string name="format_class_detail">Classe: %1$s</string>
+    <string name="format_level_detail">Nível %1$d</string>
+    <string name="format_stat_detail">%1$s: %2$d</string>
+    <string name="format_weapons_detail">Armas: %1$s (R) / %2$s (L)</string>
+    <string name="format_armor_detail">Armadura: %1$s, %2$s, %3$s, %4$s</string>
+    <string name="format_talismans_detail">Talismãs: %1$s, %2$s, %3$s, %4$s</string>
 </resources>

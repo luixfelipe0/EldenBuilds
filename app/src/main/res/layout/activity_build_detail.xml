@@ -16,7 +16,7 @@
             android:id="@+id/toolbar_detail"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="Build Details"
+            app:title="@string/title_build_details"
             app:navigationIcon="?attr/homeAsUpIndicator" />
 
     </com.google.android.material.appbar.AppBarLayout>
