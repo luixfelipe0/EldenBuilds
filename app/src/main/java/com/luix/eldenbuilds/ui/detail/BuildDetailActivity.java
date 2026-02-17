@@ -1,33 +1,95 @@
 package com.luix.eldenbuilds.ui.detail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.luix.eldenbuilds.R;
 import com.luix.eldenbuilds.data.model.Build;
 import com.luix.eldenbuilds.data.model.Stats;
+import com.luix.eldenbuilds.ui.viewmodel.BuildViewModel;
 
 public class BuildDetailActivity extends AppCompatActivity {
+
+    private Build currentBuild;
+    private BuildViewModel buildViewModel;
+
+    private final ActivityResultLauncher<Intent> editBuildLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    Build updatedBuild = (Build) result.getData().getSerializableExtra(AddEditBuildActivity.EXTRA_BUILD);
+
+                    buildViewModel.update(updatedBuild);
+
+                    this.currentBuild = updatedBuild;
+                    populateUI(updatedBuild);
+
+                    Toast.makeText(this, "Build atualizada com sucesso!", Toast.LENGTH_SHORT).show();
+                }
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_build_detail);
 
-        setSupportActionBar(findViewById(R.id.toolbar_detail));
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        buildViewModel = new ViewModelProvider(this).get(BuildViewModel.class);
+
+        currentBuild = (Build) getIntent().getSerializableExtra(AddEditBuildActivity.EXTRA_BUILD);
+
+        if (currentBuild != null) {
+            populateUI(currentBuild);
         }
 
-        Build build = (Build) getIntent().getSerializableExtra(AddEditBuildActivity.EXTRA_BUILD);
+        setupToolbar();
+    }
 
-        if (build != null) {
-            populateUI(build);
-        }
+    private void setupToolbar() {
+        MaterialToolbar toolbar = findViewById(R.id.toolbar_detail);
+
+        toolbar.setNavigationOnClickListener(v -> finish());
+
+        toolbar.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.action_edit) {
+                editBuild();
+                return true;
+            } else if (item.getItemId() == R.id.action_delete) {
+                confirmDelete();
+                return true;
+            }
+            return false;
+        });
+    }
+
+    private void editBuild() {
+        Intent intent = new Intent(BuildDetailActivity.this, AddEditBuildActivity.class);
+        intent.putExtra(AddEditBuildActivity.EXTRA_BUILD, currentBuild);
+        editBuildLauncher.launch(intent);
+    }
+
+    private void confirmDelete() {
+        new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.dialog_delete_title)
+                .setMessage(R.string.dialog_delete_message)
+                .setPositiveButton(R.string.action_yes, (dialog, which) -> {
+                    buildViewModel.delete(currentBuild);
+                    Toast.makeText(this, "Build deletada", Toast.LENGTH_SHORT).show();
+                    finish();
+                })
+                .setNegativeButton(R.string.action_no, null)
+                .show();
     }
 
     private void populateUI(Build build) {
@@ -58,20 +120,20 @@ public class BuildDetailActivity extends AppCompatActivity {
         TextView textArmor = findViewById(R.id.text_equip_armor);
         TextView textTalismans = findViewById(R.id.text_equip_talismans);
 
-        String rHand = build.getRightHandWeapon().isEmpty() ? getString(R.string.empty_slot) : build.getRightHandWeapon();
-        String lHand = build.getLeftHandWeapon().isEmpty() ? getString(R.string.empty_slot) : build.getLeftHandWeapon();
+        String rHand = build.getRightHandWeapon() != null && !build.getRightHandWeapon().isEmpty() ? build.getRightHandWeapon() : getString(R.string.empty_slot);
+        String lHand = build.getLeftHandWeapon() != null && !build.getLeftHandWeapon().isEmpty() ? build.getLeftHandWeapon() : getString(R.string.empty_slot);
         textWeapons.setText(getString(R.string.format_weapons_detail, rHand, lHand));
 
-        String helm = build.getHeadArmor().isEmpty() ? getString(R.string.empty_slot) : build.getHeadArmor();
-        String chest = build.getChestArmor().isEmpty() ? getString(R.string.empty_slot) : build.getChestArmor();
-        String hands = build.getHandsArmor().isEmpty() ? getString(R.string.empty_slot) : build.getHandsArmor();
-        String legs = build.getLegsArmor().isEmpty() ? getString(R.string.empty_slot) : build.getLegsArmor();
+        String helm = build.getHeadArmor() != null && !build.getHeadArmor().isEmpty() ? build.getHeadArmor() : getString(R.string.empty_slot);
+        String chest = build.getChestArmor() != null && !build.getChestArmor().isEmpty() ? build.getChestArmor() : getString(R.string.empty_slot);
+        String hands = build.getHandsArmor() != null && !build.getHandsArmor().isEmpty() ? build.getHandsArmor() : getString(R.string.empty_slot);
+        String legs = build.getLegsArmor() != null && !build.getLegsArmor().isEmpty() ? build.getLegsArmor() : getString(R.string.empty_slot);
         textArmor.setText(getString(R.string.format_armor_detail, helm, chest, hands, legs));
 
-        String t1 = build.getTalisman1().isEmpty() ? getString(R.string.empty_slot) : build.getTalisman1();
-        String t2 = build.getTalisman2().isEmpty() ? getString(R.string.empty_slot) : build.getTalisman2();
-        String t3 = build.getTalisman3().isEmpty() ? getString(R.string.empty_slot) : build.getTalisman3();
-        String t4 = build.getTalisman4().isEmpty() ? getString(R.string.empty_slot) : build.getTalisman4();
+        String t1 = build.getTalisman1() != null && !build.getTalisman1().isEmpty() ? build.getTalisman1() : getString(R.string.empty_slot);
+        String t2 = build.getTalisman2() != null && !build.getTalisman2().isEmpty() ? build.getTalisman2() : getString(R.string.empty_slot);
+        String t3 = build.getTalisman3() != null && !build.getTalisman3().isEmpty() ? build.getTalisman3() : getString(R.string.empty_slot);
+        String t4 = build.getTalisman4() != null && !build.getTalisman4().isEmpty() ? build.getTalisman4() : getString(R.string.empty_slot);
         textTalismans.setText(getString(R.string.format_talismans_detail, t1, t2, t3, t4));
 
         MaterialCardView cardNotes = findViewById(R.id.card_notes);
@@ -85,9 +147,4 @@ public class BuildDetailActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
-    }
 }

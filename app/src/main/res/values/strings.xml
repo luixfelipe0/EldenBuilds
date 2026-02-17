@@ -48,4 +48,12 @@
     <string name="format_weapons_detail">Armas: %1$s (R) / %2$s (L)</string>
     <string name="format_armor_detail">Armadura: %1$s, %2$s, %3$s, %4$s</string>
     <string name="format_talismans_detail">Talismãs: %1$s, %2$s, %3$s, %4$s</string>
+
+    <string name="menu_edit">Editar</string>
+    <string name="menu_delete">Deletar</string>
+    <string name="dialog_delete_title">Deletar Build?</string>
+    <string name="dialog_delete_message">Tem certeza que deseja apagar esta build? Esta ação não pode ser desfeita.</string>
+    <string name="action_yes">Sim, Apagar</string>
+    <string name="action_no">Cancelar</string>
+    <string name="title_edit_build">Editar Build</string>
 </resources>

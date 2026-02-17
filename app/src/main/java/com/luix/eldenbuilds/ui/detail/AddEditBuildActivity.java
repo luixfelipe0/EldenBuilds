@@ -40,6 +40,9 @@ public class AddEditBuildActivity extends AppCompatActivity {
 
     private MaterialButton buttonSave;
 
+    private int currentBuildId = -1;
+    private StartingClass currentClass = StartingClass.VAGABOND;
+
     private StartingClass currentSelectedClass = StartingClass.VAGABOND;
 
     @Override
@@ -58,6 +61,53 @@ public class AddEditBuildActivity extends AppCompatActivity {
         }
 
         buttonSave.setOnClickListener(v -> saveBuild());
+
+        Intent intent = getIntent();
+        if (intent.hasExtra(EXTRA_BUILD)) {
+            Build buildToEdit = (Build) intent.getSerializableExtra(EXTRA_BUILD);
+            if (buildToEdit != null) {
+                currentBuildId = buildToEdit.getId();
+                populateForEdit(buildToEdit);
+
+                if (getSupportActionBar() != null) {
+                    getSupportActionBar().setTitle(R.string.title_edit_build);
+                }
+            }
+        }
+    }
+
+    private void populateForEdit(Build build) {
+        editTextName.setText(build.getName());
+
+        if (build.getStartingClass() != null) {
+            spinnerClass.setText(build.getStartingClass().getDisplayName(), false);
+            currentSelectedClass = build.getStartingClass();
+        }
+
+        if (build.getStats() != null) {
+            editVigor.setText(String.valueOf(build.getStats().getVigor()));
+            editMind.setText(String.valueOf(build.getStats().getMind()));
+            editEndurance.setText(String.valueOf(build.getStats().getEndurance()));
+            editStrength.setText(String.valueOf(build.getStats().getStrength()));
+            editDexterity.setText(String.valueOf(build.getStats().getDexterity()));
+            editIntelligence.setText(String.valueOf(build.getStats().getIntelligence()));
+            editFaith.setText(String.valueOf(build.getStats().getFaith()));
+            editArcane.setText(String.valueOf(build.getStats().getArcane()));
+        }
+
+        editWeaponR.setText(build.getRightHandWeapon());
+        editWeaponL.setText(build.getLeftHandWeapon());
+        editHelm.setText(build.getHeadArmor());
+        editChest.setText(build.getChestArmor());
+        editHands.setText(build.getHandsArmor());
+        editLegs.setText(build.getLegsArmor());
+        editTal1.setText(build.getTalisman1());
+        editTal2.setText(build.getTalisman2());
+        editTal3.setText(build.getTalisman3());
+        editTal4.setText(build.getTalisman4());
+        editNotes.setText(build.getNotes());
+
+        recalculateLevel();
     }
 
     private void initViews() {
@@ -202,6 +252,11 @@ public class AddEditBuildActivity extends AppCompatActivity {
         Stats stats = new Stats(vigor, mind, endurance, strength, dexterity, intelligence, faith, arcane);
 
         Build newBuild = new Build(name, currentSelectedClass, level);
+
+        if (currentBuildId != -1) {
+            newBuild.setId(currentBuildId);
+        }
+
         newBuild.setStats(stats);
 
         newBuild.setRightHandWeapon(getTextSafe(editWeaponR));
