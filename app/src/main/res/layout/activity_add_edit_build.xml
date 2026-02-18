@@ -242,10 +242,11 @@
                     android:layout_weight="1"
                     android:layout_marginEnd="8dp"
                     android:hint="@string/hint_right_hand">
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
                         android:id="@+id/edit_weapon_r"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:completionThreshold="1"
                         android:inputType="textCapWords" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -254,10 +255,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="@string/hint_left_hand">
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
                         android:id="@+id/edit_weapon_l"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:completionThreshold="1"
                         android:inputType="textCapWords" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -284,10 +286,11 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:hint="@string/hint_helm">
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
                         android:id="@+id/edit_armor_helm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:completionThreshold="1"
                         android:inputType="textCapWords"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -297,10 +300,11 @@
                     android:layout_columnWeight="1"
                     android:layout_marginBottom="8dp"
                     android:hint="@string/hint_chest">
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
                         android:id="@+id/edit_armor_chest"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:completionThreshold="1"
                         android:inputType="textCapWords"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -310,10 +314,11 @@
                     android:layout_columnWeight="1"
                     android:layout_marginEnd="8dp"
                     android:hint="@string/hint_hands">
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
                         android:id="@+id/edit_armor_hands"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:completionThreshold="1"
                         android:inputType="textCapWords"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -322,10 +327,11 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:hint="@string/hint_legs">
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
                         android:id="@+id/edit_armor_legs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:completionThreshold="1"
                         android:inputType="textCapWords"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </GridLayout>
@@ -350,10 +356,12 @@
                     android:layout_columnWeight="1"
                     android:layout_marginEnd="8dp"
                     android:hint="@string/hint_talisman_1">
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
                         android:id="@+id/edit_talisman_1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapWords"
+                        android:completionThreshold="1"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -361,10 +369,12 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:hint="@string/hint_talisman_2">
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
                         android:id="@+id/edit_talisman_2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapWords"
+                        android:completionThreshold="1"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -374,10 +384,12 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:hint="@string/hint_talisman_3">
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
                         android:id="@+id/edit_talisman_3"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapWords"
+                        android:completionThreshold="1"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -386,10 +398,12 @@
                     android:layout_columnWeight="1"
                     android:layout_marginTop="8dp"
                     android:hint="@string/hint_talisman_4">
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
                         android:id="@+id/edit_talisman_4"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapWords"
+                        android:completionThreshold="1"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </GridLayout>
 

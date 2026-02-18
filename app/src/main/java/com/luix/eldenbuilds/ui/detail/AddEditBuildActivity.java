@@ -33,9 +33,9 @@ public class AddEditBuildActivity extends AppCompatActivity {
             editDexterity, editIntelligence, editFaith, editArcane;
 
     // Equipment
-    private TextInputEditText editWeaponR, editWeaponL;
-    private TextInputEditText editHelm, editChest, editHands, editLegs;
-    private TextInputEditText editTal1, editTal2, editTal3, editTal4;
+    private AutoCompleteTextView editWeaponR, editWeaponL;
+    private AutoCompleteTextView editHelm, editChest, editHands, editLegs;
+    private AutoCompleteTextView editTal1, editTal2, editTal3, editTal4;
     private TextInputEditText editNotes;
 
     private MaterialButton buttonSave;
@@ -53,6 +53,7 @@ public class AddEditBuildActivity extends AppCompatActivity {
         initViews();
         setupClassSpinner();
         setupAutoLevelCalculation();
+        setupAutoCompletes();
 
         setSupportActionBar(findViewById(R.id.topAppBar));
         if (getSupportActionBar() != null) {
@@ -74,6 +75,31 @@ public class AddEditBuildActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    private void setupAutoCompletes() {
+        String[] weapons = getResources().getStringArray(R.array.seed_weapons);
+        String[] helms = getResources().getStringArray(R.array.seed_armor_helms);
+        String[] chests = getResources().getStringArray(R.array.seed_armor_chests);
+        String[] talismans = getResources().getStringArray(R.array.seed_talismans);
+
+        int layout = android.R.layout.simple_dropdown_item_1line;
+
+        ArrayAdapter<String> weaponAdapter = new ArrayAdapter<>(this, layout, weapons);
+        ArrayAdapter<String> helmAdapter = new ArrayAdapter<>(this, layout, helms);
+        ArrayAdapter<String> chestAdapter = new ArrayAdapter<>(this, layout, chests);
+        ArrayAdapter<String> talismanAdapter = new ArrayAdapter<>(this, layout, talismans);
+
+        editWeaponR.setAdapter(weaponAdapter);
+        editWeaponL.setAdapter(weaponAdapter);
+
+        editHelm.setAdapter(helmAdapter);
+        editChest.setAdapter(chestAdapter);
+
+        editTal1.setAdapter(talismanAdapter);
+        editTal2.setAdapter(talismanAdapter);
+        editTal3.setAdapter(talismanAdapter);
+        editTal4.setAdapter(talismanAdapter);
     }
 
     private void populateForEdit(Build build) {
@@ -290,7 +316,7 @@ public class AddEditBuildActivity extends AppCompatActivity {
         }
     }
 
-    private String getTextSafe(TextInputEditText editText) {
+    private String getTextSafe(android.widget.EditText editText) {
         return editText.getText() != null ? editText.getText().toString().trim() : "";
     }
 

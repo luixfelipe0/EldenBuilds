@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="seed_weapons">
+        <item>Uchigatana</item>
+        <item>Rivers of Blood</item>
+        <item>Moonveil</item>
+        <item>Bloodhound\'s Fang</item>
+        <item>Dark Moon Greatsword</item>
+        <item>Blasphemous Blade</item>
+        <item>Meteorite Staff</item>
+        <item>Eleonora\'s Poleblade</item>
+        <item>Nagakiba</item>
+        <item>Giant-Crusher</item>
+    </string-array>
+
+    <string-array name="seed_armor_helms">
+        <item>Okina Mask</item>
+        <item>White Mask</item>
+        <item>Silver Tear Mask</item>
+        <item>Radahn\'s Redmane Helm</item>
+        <item>Queen\'s Crescent Crown</item>
+    </string-array>
+
+    <string-array name="seed_armor_chests">
+        <item>Ronin\'s Armor</item>
+        <item>Radahn\'s Lion Armor</item>
+        <item>Raptor\'s Black Feathers</item>
+        <item>Veterans Armor</item>
+    </string-array>
+
+    <string-array name="seed_talismans">
+        <item>Lord of Blood\'s Exultation</item>
+        <item>Erdtree\'s Favor +2</item>
+        <item>Radagon\'s Soreseal</item>
+        <item>Shard of Alexander</item>
+        <item>Dragoncrest Greatshield Talisman</item>
+        <item>Claw Talisman</item>
+        <item>Green Turtle Talisman</item>
+        <item>Rotten Winged Sword Insignia</item>
+    </string-array>
+</resources>
