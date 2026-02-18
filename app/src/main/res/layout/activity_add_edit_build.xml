@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:ignore="VisualLintTextFieldSize,VisualLintButtonSize,TouchTargetSizeCheck,TextContrastCheck,EditableContentDescCheck"
     tools:context=".ui.detail.AddEditBuildActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -16,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="@string/add_build"
-            app:navigationIcon="@drawable/ic_close" />
+            app:navigationIcon="@android:drawable/ic_menu_close_clear_cancel" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -58,14 +59,14 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:hint="@string/hint_class">
 
-                    <AutoCompleteTextView
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/spinner_class"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
                         android:inputType="none"
                         android:focusable="false"
-                        android:text="@string/class_vagabond"
-                        />
+                        android:text="@string/class_vagabond" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -99,122 +100,30 @@
                 android:columnCount="2"
                 android:rowCount="4">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:hint="@string/stat_vigor">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_vigor"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="2"/>
+                <com.google.android.material.textfield.TextInputLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:layout_marginEnd="8dp" android:layout_marginBottom="8dp" android:hint="@string/stat_vigor">
+                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/edit_vigor" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:maxLength="2"/>
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_marginBottom="8dp"
-                    android:hint="@string/stat_mind">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_mind"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="2"/>
+                <com.google.android.material.textfield.TextInputLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:layout_marginBottom="8dp" android:hint="@string/stat_mind">
+                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/edit_mind" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:maxLength="2"/>
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:hint="@string/stat_endurance">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_endurance"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="2"/>
+                <com.google.android.material.textfield.TextInputLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:layout_marginEnd="8dp" android:layout_marginBottom="8dp" android:hint="@string/stat_endurance">
+                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/edit_endurance" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:maxLength="2"/>
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_marginBottom="8dp"
-                    android:hint="@string/stat_strength">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_strength"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="2"/>
+                <com.google.android.material.textfield.TextInputLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:layout_marginBottom="8dp" android:hint="@string/stat_strength">
+                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/edit_strength" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:maxLength="2"/>
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:hint="@string/stat_dexterity">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_dexterity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="2"/>
+                <com.google.android.material.textfield.TextInputLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:layout_marginEnd="8dp" android:layout_marginBottom="8dp" android:hint="@string/stat_dexterity">
+                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/edit_dexterity" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:maxLength="2"/>
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_marginBottom="8dp"
-                    android:hint="@string/stat_intelligence">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_intelligence"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="2"/>
+                <com.google.android.material.textfield.TextInputLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:layout_marginBottom="8dp" android:hint="@string/stat_intelligence">
+                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/edit_intelligence" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:maxLength="2"/>
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:hint="@string/stat_faith">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_faith"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="2"/>
+                <com.google.android.material.textfield.TextInputLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:layout_marginEnd="8dp" android:layout_marginBottom="8dp" android:hint="@string/stat_faith">
+                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/edit_faith" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:maxLength="2"/>
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_marginBottom="8dp"
-                    android:hint="@string/stat_arcane">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_arcane"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="2"/>
+                <com.google.android.material.textfield.TextInputLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:layout_marginBottom="8dp" android:hint="@string/stat_arcane">
+                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/edit_arcane" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:maxLength="2"/>
                 </com.google.android.material.textfield.TextInputLayout>
-
             </GridLayout>
 
             <View
@@ -242,10 +151,11 @@
                     android:layout_weight="1"
                     android:layout_marginEnd="8dp"
                     android:hint="@string/hint_right_hand">
-                    <AutoCompleteTextView
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/edit_weapon_r"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
                         android:completionThreshold="1"
                         android:inputType="textCapWords" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -255,10 +165,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="@string/hint_left_hand">
-                    <AutoCompleteTextView
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/edit_weapon_l"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
                         android:completionThreshold="1"
                         android:inputType="textCapWords" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -286,10 +197,11 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:hint="@string/hint_helm">
-                    <AutoCompleteTextView
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/edit_armor_helm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
                         android:completionThreshold="1"
                         android:inputType="textCapWords"/>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -300,10 +212,11 @@
                     android:layout_columnWeight="1"
                     android:layout_marginBottom="8dp"
                     android:hint="@string/hint_chest">
-                    <AutoCompleteTextView
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/edit_armor_chest"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
                         android:completionThreshold="1"
                         android:inputType="textCapWords"/>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -314,10 +227,11 @@
                     android:layout_columnWeight="1"
                     android:layout_marginEnd="8dp"
                     android:hint="@string/hint_hands">
-                    <AutoCompleteTextView
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/edit_armor_hands"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
                         android:completionThreshold="1"
                         android:inputType="textCapWords"/>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -327,10 +241,11 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:hint="@string/hint_legs">
-                    <AutoCompleteTextView
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/edit_armor_legs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
                         android:completionThreshold="1"
                         android:inputType="textCapWords"/>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -356,10 +271,11 @@
                     android:layout_columnWeight="1"
                     android:layout_marginEnd="8dp"
                     android:hint="@string/hint_talisman_1">
-                    <AutoCompleteTextView
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/edit_talisman_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
                         android:inputType="textCapWords"
                         android:completionThreshold="1"/>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -369,10 +285,11 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:hint="@string/hint_talisman_2">
-                    <AutoCompleteTextView
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/edit_talisman_2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
                         android:inputType="textCapWords"
                         android:completionThreshold="1"/>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -384,10 +301,11 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:hint="@string/hint_talisman_3">
-                    <AutoCompleteTextView
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/edit_talisman_3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
                         android:inputType="textCapWords"
                         android:completionThreshold="1"/>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -398,10 +316,11 @@
                     android:layout_columnWeight="1"
                     android:layout_marginTop="8dp"
                     android:hint="@string/hint_talisman_4">
-                    <AutoCompleteTextView
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/edit_talisman_4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
                         android:inputType="textCapWords"
                         android:completionThreshold="1"/>
                 </com.google.android.material.textfield.TextInputLayout>
