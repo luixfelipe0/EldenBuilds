@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "209433463127",
+    "project_id": "eldenbuilds-da3f8",
+    "storage_bucket": "eldenbuilds-da3f8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209433463127:android:c77f31bb5abf1f4f971612",
+        "android_client_info": {
+          "package_name": "com.luix.eldenbuilds"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzC3gV82XEplKQ6LdiVK7eLCEfCvI_RgY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
