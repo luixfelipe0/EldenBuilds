@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.luix.eldenbuilds.R;
 import com.luix.eldenbuilds.data.model.Build;
 
+import java.util.Objects;
+
 public class BuildAdapter extends ListAdapter<Build, BuildAdapter.BuildHolder> {
 
     private OnItemClickListener listener;
@@ -22,7 +24,8 @@ public class BuildAdapter extends ListAdapter<Build, BuildAdapter.BuildHolder> {
         super(new DiffUtil.ItemCallback<>() {
             @Override
             public boolean areItemsTheSame(@NonNull Build oldItem, @NonNull Build newItem) {
-                return oldItem.getId() == newItem.getId();
+                if (oldItem.getId() == null || newItem.getId() == null) return false;
+                return oldItem.getId().equals(newItem.getId());
             }
 
             @Override

@@ -1,49 +1,67 @@
 package com.luix.eldenbuilds.data.repository;
 
-import android.app.Application;
-
+import android.util.Log;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
-import com.luix.eldenbuilds.data.local.AppDatabase;
-import com.luix.eldenbuilds.data.local.dao.BuildDao;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.luix.eldenbuilds.data.model.Build;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BuildRepository {
 
-    private final BuildDao mBuildDao;
-    private final LiveData<List<Build>> mAllBuilds;
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final CollectionReference buildsRef = db.collection("builds");
+    private final MutableLiveData<List<Build>> allBuildsLiveData = new MutableLiveData<>();
 
-    public BuildRepository(Application application) {
-        AppDatabase db = AppDatabase.getDatabase(application);
-        mBuildDao = db.buildDao();
-        mAllBuilds = mBuildDao.getAllBuilds();
+    public BuildRepository() {
+        startListeningToBuilds();
+    }
+
+    private void startListeningToBuilds() {
+        buildsRef.orderBy("name", Query.Direction.ASCENDING)
+                .addSnapshotListener((value, error) -> {
+                    if (error != null) {
+                        Log.e("BuildRepository", "Erro ao ouvir modificações no Firestore.", error);
+                        return;
+                    }
+
+                    if (value != null) {
+                        List<Build> builds = new ArrayList<>();
+                        for (QueryDocumentSnapshot doc : value) {
+                            Build build = doc.toObject(Build.class);
+                            builds.add(build);
+                        }
+                        allBuildsLiveData.postValue(builds);
+                    }
+                });
     }
 
     public LiveData<List<Build>> getAllBuilds() {
-        return mAllBuilds;
+        return allBuildsLiveData;
     }
 
     public void insert(Build build) {
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            mBuildDao.insert(build);
-        });
+        buildsRef.add(build)
+                .addOnFailureListener(e -> Log.e("BuildRepository", "Erro na inserção", e));
     }
 
     public void update(Build build) {
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            mBuildDao.update(build);
-        });
+        if (build.getId() == null) return;
+
+        buildsRef.document(build.getId()).set(build)
+                .addOnFailureListener(e -> Log.e("BuildRepository", "Erro na atualização", e));
     }
 
     public void delete(Build build) {
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            mBuildDao.delete(build);
-        });
-    }
+        if (build.getId() == null) return;
 
-    public void deleteAll() {
-        AppDatabase.databaseWriteExecutor.execute(mBuildDao::deleteAll);
+        buildsRef.document(build.getId()).delete()
+                .addOnFailureListener(e -> Log.e("BuildRepository", "Erro na exclusão", e));
     }
 }

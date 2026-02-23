@@ -40,7 +40,7 @@ public class AddEditBuildActivity extends AppCompatActivity {
 
     private MaterialButton buttonSave;
 
-    private int currentBuildId = -1;
+    private String currentBuildId = null;
     private StartingClass currentClass = StartingClass.VAGABOND;
 
     private StartingClass currentSelectedClass = StartingClass.VAGABOND;
@@ -279,7 +279,7 @@ public class AddEditBuildActivity extends AppCompatActivity {
 
         Build newBuild = new Build(name, currentSelectedClass, level);
 
-        if (currentBuildId != -1) {
+        if (currentBuildId != null) {
             newBuild.setId(currentBuildId);
         }
 
