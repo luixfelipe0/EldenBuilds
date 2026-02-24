@@ -4,6 +4,8 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -18,13 +20,23 @@ public class BuildRepository {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final CollectionReference buildsRef = db.collection("builds");
     private final MutableLiveData<List<Build>> allBuildsLiveData = new MutableLiveData<>();
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     public BuildRepository() {
         startListeningToBuilds();
     }
 
     private void startListeningToBuilds() {
-        buildsRef.orderBy("name", Query.Direction.ASCENDING)
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            Log.w("BuildRepository", "Usuário não autenticado. Interrompendo escuta do banco.");
+            return;
+        }
+
+        String currentUserId = currentUser.getUid();
+
+        buildsRef.whereEqualTo("authorId", currentUserId)
+                .orderBy("name", Query.Direction.ASCENDING)
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {
                         Log.e("BuildRepository", "Erro ao ouvir modificações no Firestore.", error);
@@ -47,6 +59,11 @@ public class BuildRepository {
     }
 
     public void insert(Build build) {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) return;
+
+        build.setAuthorId(currentUser.getUid());
+
         buildsRef.add(build)
                 .addOnFailureListener(e -> Log.e("BuildRepository", "Erro na inserção", e));
     }

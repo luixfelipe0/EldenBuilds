@@ -12,7 +12,20 @@
           "package_name": "com.luix.eldenbuilds"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "209433463127-hibvopana2iq4l5mpov0kvsjk44f8m3a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.luix.eldenbuilds",
+            "certificate_hash": "dcee9e287d514c6785670cfdf93b2a70391c5026"
+          }
+        },
+        {
+          "client_id": "209433463127-q8ikeiusv7cd9d1a3ibkr2t6eavjacu4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBzC3gV82XEplKQ6LdiVK7eLCEfCvI_RgY"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "209433463127-q8ikeiusv7cd9d1a3ibkr2t6eavjacu4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

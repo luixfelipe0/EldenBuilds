@@ -10,6 +10,8 @@ public class Build implements Serializable {
     @DocumentId
     private String id;
 
+    private String authorId;
+
     private String name;
     private StartingClass startingClass;
     private int level;
@@ -49,6 +51,14 @@ public class Build implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
     }
 
     public String getName() {
