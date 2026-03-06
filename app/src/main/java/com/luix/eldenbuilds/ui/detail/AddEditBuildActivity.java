@@ -81,6 +81,8 @@ public class AddEditBuildActivity extends AppCompatActivity {
         String[] weapons = getResources().getStringArray(R.array.seed_weapons);
         String[] helms = getResources().getStringArray(R.array.seed_armor_helms);
         String[] chests = getResources().getStringArray(R.array.seed_armor_chests);
+        String[] hands = getResources().getStringArray(R.array.seed_armor_hands);
+        String[] legs = getResources().getStringArray(R.array.seed_armor_legs);
         String[] talismans = getResources().getStringArray(R.array.seed_talismans);
 
         int layout = android.R.layout.simple_dropdown_item_1line;
@@ -88,6 +90,8 @@ public class AddEditBuildActivity extends AppCompatActivity {
         ArrayAdapter<String> weaponAdapter = new ArrayAdapter<>(this, layout, weapons);
         ArrayAdapter<String> helmAdapter = new ArrayAdapter<>(this, layout, helms);
         ArrayAdapter<String> chestAdapter = new ArrayAdapter<>(this, layout, chests);
+        ArrayAdapter<String> handsAdapter = new ArrayAdapter<>(this, layout, hands);
+        ArrayAdapter<String> legsAdapter = new ArrayAdapter<>(this, layout, legs);
         ArrayAdapter<String> talismanAdapter = new ArrayAdapter<>(this, layout, talismans);
 
         editWeaponR.setAdapter(weaponAdapter);
@@ -95,6 +99,8 @@ public class AddEditBuildActivity extends AppCompatActivity {
 
         editHelm.setAdapter(helmAdapter);
         editChest.setAdapter(chestAdapter);
+        editHands.setAdapter(handsAdapter);
+        editLegs.setAdapter(legsAdapter);
 
         editTal1.setAdapter(talismanAdapter);
         editTal2.setAdapter(talismanAdapter);

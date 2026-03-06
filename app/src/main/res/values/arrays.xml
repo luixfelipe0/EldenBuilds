@@ -28,6 +28,20 @@
         <item>Veterans Armor</item>
     </string-array>
 
+    <string-array name="seed_armor_hands">
+        <item>Ronin\'s Gauntlets</item>
+        <item>Radahn\'s Gauntlets</item>
+        <item>Raptor\'s Black Gauntlets</item>
+        <item>Veterans Gauntlets</item>
+    </string-array>
+
+    <string-array name="seed_armor_legs">
+        <item>Ronin\'s Greaves</item>
+        <item>Radahn\'s Greaves</item>
+        <item>Raptor\'s Black Legs</item>
+        <item>Veterans Greaves</item>
+    </string-array>
+
     <string-array name="seed_talismans">
         <item>Lord of Blood\'s Exultation</item>
         <item>Erdtree\'s Favor +2</item>
