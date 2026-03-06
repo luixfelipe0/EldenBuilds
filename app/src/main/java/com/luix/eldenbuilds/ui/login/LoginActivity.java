@@ -15,6 +15,7 @@ import androidx.credentials.CustomCredential;
 import androidx.credentials.GetCredentialRequest;
 import androidx.credentials.GetCredentialResponse;
 import androidx.credentials.exceptions.GetCredentialException;
+import androidx.credentials.exceptions.NoCredentialException;
 
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
@@ -77,8 +78,13 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(@NonNull GetCredentialException e) {
-                        Log.e(TAG, "Falha na requisição de credencial", e);
-                        Toast.makeText(LoginActivity.this, "Falha ao exibir o prompt do Google.", Toast.LENGTH_SHORT).show();
+                        if (e instanceof NoCredentialException) {
+                            Log.i(TAG, "No available Google credential for this account/session.", e);
+                            Toast.makeText(LoginActivity.this, R.string.error_no_google_credential, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        Log.e(TAG, "Credential request failed", e);
+                        Toast.makeText(LoginActivity.this, R.string.error_google_prompt_failed, Toast.LENGTH_SHORT).show();
                     }
                 }
         );
@@ -91,7 +97,8 @@ public class LoginActivity extends AppCompatActivity {
             String idToken = googleIdTokenCredential.getIdToken();
             firebaseAuthWithGoogle(idToken);
         } else {
-            Log.e(TAG, "Credencial retornada não é do tipo Google ID Token");
+            Log.e(TAG, "Credential is not a Google ID token credential.");
+            Toast.makeText(this, R.string.error_google_credential_type, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -103,8 +110,8 @@ public class LoginActivity extends AppCompatActivity {
                         FirebaseUser user = mAuth.getCurrentUser();
                         updateUI(user);
                     } else {
-                        Log.w(TAG, "Falha no signInWithCredential do Firebase", task.getException());
-                        Toast.makeText(this, "Falha na autenticação do Firebase.", Toast.LENGTH_SHORT).show();
+                        Log.w(TAG, "Firebase signInWithCredential failed", task.getException());
+                        Toast.makeText(this, R.string.error_firebase_auth_failed, Toast.LENGTH_SHORT).show();
                     }
                 });
     }

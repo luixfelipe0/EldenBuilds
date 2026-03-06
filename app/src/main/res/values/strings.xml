@@ -59,4 +59,8 @@
     <string name="error_invalid_build_payload">Dados da build invalidos.</string>
     <string name="toast_build_saved">Build salva com sucesso!</string>
     <string name="toast_build_not_saved">Build nao salva.</string>
+    <string name="error_no_google_credential">Nenhuma conta Google disponivel para login.</string>
+    <string name="error_google_prompt_failed">Falha ao abrir login Google.</string>
+    <string name="error_google_credential_type">Tipo de credencial Google invalido.</string>
+    <string name="error_firebase_auth_failed">Falha na autenticacao do Firebase.</string>
 </resources>
