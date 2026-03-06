@@ -58,7 +58,7 @@ public class AddEditBuildActivity extends AppCompatActivity {
         setSupportActionBar(findViewById(R.id.topAppBar));
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeAsUpIndicator(android.R.drawable.ic_menu_close_clear_cancel);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
         }
 
         buttonSave.setOnClickListener(v -> saveBuild());
