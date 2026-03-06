@@ -40,7 +40,6 @@ dependencies {
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
     implementation libs.gson
-    implementation libs.material.v1110
     implementation platform(libs.firebase.bom)
     implementation libs.firebase.firestore
     implementation libs.firebase.auth
