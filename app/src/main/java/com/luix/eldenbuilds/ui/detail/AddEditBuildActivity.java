@@ -16,6 +16,7 @@ import com.luix.eldenbuilds.R;
 import com.luix.eldenbuilds.data.model.Build;
 import com.luix.eldenbuilds.data.model.StartingClass;
 import com.luix.eldenbuilds.data.model.Stats;
+import com.luix.eldenbuilds.domain.BuildLevelCalculator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -260,27 +261,10 @@ public class AddEditBuildActivity extends AppCompatActivity {
         int fai = parseStat(editFaith, currentSelectedClass.baseFaith);
         int arc = parseStat(editArcane, currentSelectedClass.baseArcane);
 
-        int currentStatsSum = vig + min + end + str + dex + intl + fai + arc;
-        int calculatedLevel = getCalculatedLevel(currentStatsSum);
+        Stats currentStats = new Stats(vig, min, end, str, dex, intl, fai, arc);
+        int calculatedLevel = BuildLevelCalculator.calculateLevel(currentSelectedClass, currentStats);
 
         editTextLevel.setText(String.valueOf(calculatedLevel));
-    }
-
-    private int getCalculatedLevel(int currentStatsSum) {
-        int baseStatsSum = currentSelectedClass.baseVigor +
-                currentSelectedClass.baseMind +
-                currentSelectedClass.baseEndurance +
-                currentSelectedClass.baseStrength +
-                currentSelectedClass.baseDexterity +
-                currentSelectedClass.baseIntelligence +
-                currentSelectedClass.baseFaith +
-                currentSelectedClass.baseArcane;
-
-        int calculatedLevel = currentSelectedClass.baseLevel + (currentStatsSum - baseStatsSum);
-        if (calculatedLevel < currentSelectedClass.baseLevel) {
-            calculatedLevel = currentSelectedClass.baseLevel;
-        }
-        return calculatedLevel;
     }
 
     private void saveBuild() {
