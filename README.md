@@ -10,6 +10,7 @@ Android app to create, edit, and manage **Elden Ring** builds, with Google authe
 - Build system: `AGP 9.1.0` + `Gradle 9.3.1`
 - Language: Java
 - UI: Material Components + RecyclerView
+- Firestore rules versioned in repository (`firestore.rules`)
 
 ## Implemented Features
 
@@ -47,27 +48,27 @@ Data flow:
 
 ```text
 app/src/main/java/com/luix/eldenbuilds
-├── data
-│   ├── model
-│   │   ├── Build.java
-│   │   ├── StartingClass.java
-│   │   └── Stats.java
-│   └── repository
-│       └── BuildRepository.java
-├── domain
-│   └── BuildLevelCalculator.java
-└── ui
-    ├── adapter
-    │   └── BuildAdapter.java
-    ├── detail
-    │   ├── AddEditBuildActivity.java
-    │   └── BuildDetailActivity.java
-    ├── list
-    │   └── MainActivity.java
-    ├── login
-    │   └── LoginActivity.java
-    └── viewmodel
-        └── BuildViewModel.java
+|- data
+|  |- model
+|  |  |- Build.java
+|  |  |- StartingClass.java
+|  |  `- Stats.java
+|  `- repository
+|     `- BuildRepository.java
+|- domain
+|  `- BuildLevelCalculator.java
+`- ui
+   |- adapter
+   |  `- BuildAdapter.java
+   |- detail
+   |  |- AddEditBuildActivity.java
+   |  `- BuildDetailActivity.java
+   |- list
+   |  `- MainActivity.java
+   |- login
+   |  `- LoginActivity.java
+   `- viewmodel
+      `- BuildViewModel.java
 ```
 
 ## Main Dependencies
@@ -102,9 +103,10 @@ app/src/main/java/com/luix/eldenbuilds
    - Cloud Firestore
 5. Ensure correct SHA-1/SHA-256 fingerprints in the Firebase Android app (required for Google login in some build/device scenarios).
 
-Note:
+Notes:
 
 - `google-services.json` is ignored by git for security.
+- Firestore rules are documented in [`docs/firestore-security.md`](docs/firestore-security.md).
 
 ## Build and Run
 
@@ -149,30 +151,26 @@ Note:
 - No dependency injection abstraction yet (e.g., Hilt).
 - No instrumented UI tests.
 - No CI pipeline configured in the repository.
-- Firestore rules are not yet documented/versioned in-project.
+- Firestore rules do not have automated tests yet.
 
 ## Next Steps
 
-1. **Define and version Firestore security rules**
-   - Goal: prevent cross-user read/write access.
-   - Deliverable: rules file in repo + deploy guide.
-
-2. **Add test suite for Repository/ViewModel**
+1. **Add test suite for Repository/ViewModel**
    - Goal: cover CRUD behavior, error states, and data mapping.
    - Deliverable: unit tests with Firebase mocks/fakes.
 
-3. **Set up CI (GitHub Actions) with `testDebugUnitTest` + `lintDebug`**
+2. **Set up CI (GitHub Actions) with `testDebugUnitTest` + `lintDebug`**
    - Goal: block regressions before merge.
    - Deliverable: workflow running on pull requests.
 
-4. **Refactor `Build` transport from `Serializable` to `Parcelable`**
+3. **Refactor `Build` transport from `Serializable` to `Parcelable`**
    - Goal: reduce overhead and remove dependency on `Serializable`.
    - Deliverable: full extras migration across Activities.
 
-5. **Improve main list UX**
+4. **Improve main list UX**
    - Goal: explicit loading/empty/error states and sync feedback.
    - Deliverable: dedicated UI states for empty list and network failure.
 
-6. **Plan architecture evolution**
+5. **Plan architecture evolution**
    - Goal: better responsibility boundaries (use cases + DI).
    - Deliverable: incremental proposal (no big-bang), starting with Auth and Builds.

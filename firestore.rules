@@ -1,0 +1,103 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner() {
+      return isSignedIn() && resource.data.authorId == request.auth.uid;
+    }
+
+    function isCreateByOwner() {
+      return isSignedIn() && request.resource.data.authorId == request.auth.uid;
+    }
+
+    function hasValidName() {
+      return request.resource.data.name is string
+        && request.resource.data.name.size() > 0
+        && request.resource.data.name.size() <= 80;
+    }
+
+    function hasValidLevel() {
+      return request.resource.data.level is int
+        && request.resource.data.level >= 1
+        && request.resource.data.level <= 713;
+    }
+
+    function hasValidClass() {
+      return !("startingClass" in request.resource.data)
+        || request.resource.data.startingClass is string;
+    }
+
+    function hasValidOptionalText(field, maxLen) {
+      return !(field in request.resource.data)
+        || request.resource.data[field] is string
+        && request.resource.data[field].size() <= maxLen;
+    }
+
+    function hasValidStats() {
+      return !("stats" in request.resource.data)
+        || (
+          request.resource.data.stats is map
+          && request.resource.data.stats.keys().hasOnly([
+            "vigor", "mind", "endurance", "strength",
+            "dexterity", "intelligence", "faith", "arcane"
+          ])
+          && request.resource.data.stats.vigor is int
+          && request.resource.data.stats.mind is int
+          && request.resource.data.stats.endurance is int
+          && request.resource.data.stats.strength is int
+          && request.resource.data.stats.dexterity is int
+          && request.resource.data.stats.intelligence is int
+          && request.resource.data.stats.faith is int
+          && request.resource.data.stats.arcane is int
+        );
+    }
+
+    function hasExpectedKeys() {
+      return request.resource.data.keys().hasOnly([
+        "authorId", "name", "startingClass", "level", "stats",
+        "rightHandWeapon", "leftHandWeapon",
+        "headArmor", "chestArmor", "handsArmor", "legsArmor",
+        "talisman1", "talisman2", "talisman3", "talisman4",
+        "notes"
+      ]);
+    }
+
+    function hasValidBuildShape() {
+      return hasExpectedKeys()
+        && hasValidName()
+        && hasValidLevel()
+        && hasValidClass()
+        && hasValidStats()
+        && hasValidOptionalText("rightHandWeapon", 80)
+        && hasValidOptionalText("leftHandWeapon", 80)
+        && hasValidOptionalText("headArmor", 80)
+        && hasValidOptionalText("chestArmor", 80)
+        && hasValidOptionalText("handsArmor", 80)
+        && hasValidOptionalText("legsArmor", 80)
+        && hasValidOptionalText("talisman1", 80)
+        && hasValidOptionalText("talisman2", 80)
+        && hasValidOptionalText("talisman3", 80)
+        && hasValidOptionalText("talisman4", 80)
+        && hasValidOptionalText("notes", 1000);
+    }
+
+    match /builds/{buildId} {
+      allow get, list: if isOwner();
+
+      allow create: if isCreateByOwner()
+        && hasValidBuildShape();
+
+      allow update: if isOwner()
+        && request.resource.data.authorId == resource.data.authorId
+        && request.resource.data.authorId == request.auth.uid
+        && hasValidBuildShape();
+
+      allow delete: if isOwner();
+    }
+  }
+}
