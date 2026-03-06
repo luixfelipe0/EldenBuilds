@@ -28,7 +28,11 @@ public class BuildDetailActivity extends AppCompatActivity {
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    Build updatedBuild = (Build) result.getData().getSerializableExtra(AddEditBuildActivity.EXTRA_BUILD);
+                    Build updatedBuild = getBuildExtra(result.getData());
+                    if (updatedBuild == null) {
+                        Toast.makeText(this, R.string.error_invalid_build_payload, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
                     buildViewModel.update(updatedBuild);
 
@@ -47,10 +51,14 @@ public class BuildDetailActivity extends AppCompatActivity {
 
         buildViewModel = new ViewModelProvider(this).get(BuildViewModel.class);
 
-        currentBuild = (Build) getIntent().getSerializableExtra(AddEditBuildActivity.EXTRA_BUILD);
+        currentBuild = getBuildExtra(getIntent());
 
         if (currentBuild != null) {
             populateUI(currentBuild);
+        } else {
+            Toast.makeText(this, R.string.error_invalid_build_payload, Toast.LENGTH_SHORT).show();
+            finish();
+            return;
         }
 
         setupToolbar();
@@ -74,12 +82,20 @@ public class BuildDetailActivity extends AppCompatActivity {
     }
 
     private void editBuild() {
+        if (currentBuild == null) {
+            Toast.makeText(this, R.string.error_invalid_build_payload, Toast.LENGTH_SHORT).show();
+            return;
+        }
         Intent intent = new Intent(BuildDetailActivity.this, AddEditBuildActivity.class);
         intent.putExtra(AddEditBuildActivity.EXTRA_BUILD, currentBuild);
         editBuildLauncher.launch(intent);
     }
 
     private void confirmDelete() {
+        if (currentBuild == null) {
+            Toast.makeText(this, R.string.error_invalid_build_payload, Toast.LENGTH_SHORT).show();
+            return;
+        }
         new MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.dialog_delete_title)
                 .setMessage(R.string.dialog_delete_message)
@@ -90,6 +106,16 @@ public class BuildDetailActivity extends AppCompatActivity {
                 })
                 .setNegativeButton(R.string.action_no, null)
                 .show();
+    }
+
+    @SuppressWarnings("deprecation")
+    private Build getBuildExtra(Intent intent) {
+        if (intent == null) return null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            return intent.getSerializableExtra(AddEditBuildActivity.EXTRA_BUILD, Build.class);
+        }
+        Object extra = intent.getSerializableExtra(AddEditBuildActivity.EXTRA_BUILD);
+        return extra instanceof Build ? (Build) extra : null;
     }
 
     private void populateUI(Build build) {

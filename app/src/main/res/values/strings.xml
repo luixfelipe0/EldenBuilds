@@ -56,4 +56,7 @@
     <string name="action_yes">Sim, Apagar</string>
     <string name="action_no">Cancelar</string>
     <string name="title_edit_build">Editar Build</string>
+    <string name="error_invalid_build_payload">Dados da build invalidos.</string>
+    <string name="toast_build_saved">Build salva com sucesso!</string>
+    <string name="toast_build_not_saved">Build nao salva.</string>
 </resources>

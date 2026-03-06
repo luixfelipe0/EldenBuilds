@@ -69,14 +69,14 @@ public class BuildRepository {
     }
 
     public void update(Build build) {
-        if (build.getId() == null) return;
+        if (build == null || build.getId() == null) return;
 
         buildsRef.document(build.getId()).set(build)
                 .addOnFailureListener(e -> Log.e("BuildRepository", "Erro na atualização", e));
     }
 
     public void delete(Build build) {
-        if (build.getId() == null) return;
+        if (build == null || build.getId() == null) return;
 
         buildsRef.document(build.getId()).delete()
                 .addOnFailureListener(e -> Log.e("BuildRepository", "Erro na exclusão", e));

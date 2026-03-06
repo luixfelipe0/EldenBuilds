@@ -27,11 +27,15 @@ public class MainActivity extends AppCompatActivity {
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    Build newBuild = (Build) result.getData().getSerializableExtra(AddEditBuildActivity.EXTRA_BUILD);
+                    Build newBuild = getBuildExtra(result.getData());
+                    if (newBuild == null) {
+                        Toast.makeText(this, R.string.error_invalid_build_payload, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     buildViewModel.insert(newBuild);
-                    Toast.makeText(this, "Build salva com sucesso!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.toast_build_saved, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Build não salva", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.toast_build_not_saved, Toast.LENGTH_SHORT).show();
                 }
             }
     );
@@ -62,5 +66,15 @@ public class MainActivity extends AppCompatActivity {
 
         buildViewModel = new ViewModelProvider(this).get(BuildViewModel.class);
         buildViewModel.getAllBuilds().observe(this, adapter::submitList);
+    }
+
+    @SuppressWarnings("deprecation")
+    private Build getBuildExtra(Intent intent) {
+        if (intent == null) return null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            return intent.getSerializableExtra(AddEditBuildActivity.EXTRA_BUILD, Build.class);
+        }
+        Object extra = intent.getSerializableExtra(AddEditBuildActivity.EXTRA_BUILD);
+        return extra instanceof Build ? (Build) extra : null;
     }
 }
