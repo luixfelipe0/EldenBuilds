@@ -183,13 +183,31 @@ public class Build implements Serializable {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Build build = (Build) o;
-        return Objects.equals(id, build.id);
+        return level == build.level &&
+                Objects.equals(id, build.id) &&
+                Objects.equals(authorId, build.authorId) &&
+                Objects.equals(name, build.name) &&
+                startingClass == build.startingClass &&
+                Objects.equals(stats, build.stats) &&
+                Objects.equals(rightHandWeapon, build.rightHandWeapon) &&
+                Objects.equals(leftHandWeapon, build.leftHandWeapon) &&
+                Objects.equals(headArmor, build.headArmor) &&
+                Objects.equals(chestArmor, build.chestArmor) &&
+                Objects.equals(handsArmor, build.handsArmor) &&
+                Objects.equals(legsArmor, build.legsArmor) &&
+                Objects.equals(talisman1, build.talisman1) &&
+                Objects.equals(talisman2, build.talisman2) &&
+                Objects.equals(talisman3, build.talisman3) &&
+                Objects.equals(talisman4, build.talisman4) &&
+                Objects.equals(notes, build.notes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(id, authorId, name, startingClass, level, stats, rightHandWeapon, leftHandWeapon,
+                headArmor, chestArmor, handsArmor, legsArmor, talisman1, talisman2, talisman3, talisman4, notes);
     }
 }

@@ -1,6 +1,7 @@
 package com.luix.eldenbuilds.data.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Stats implements Serializable {
 
@@ -90,5 +91,23 @@ public class Stats implements Serializable {
         this.arcane = arcane;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Stats stats = (Stats) o;
+        return vigor == stats.vigor &&
+                mind == stats.mind &&
+                endurance == stats.endurance &&
+                strength == stats.strength &&
+                dexterity == stats.dexterity &&
+                intelligence == stats.intelligence &&
+                faith == stats.faith &&
+                arcane == stats.arcane;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(vigor, mind, endurance, strength, dexterity, intelligence, faith, arcane);
+    }
 }

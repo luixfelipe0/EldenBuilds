@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.luix.eldenbuilds.R;
 import com.luix.eldenbuilds.data.model.Build;
 
-import java.util.Objects;
-
 public class BuildAdapter extends ListAdapter<Build, BuildAdapter.BuildHolder> {
 
     private OnItemClickListener listener;
