@@ -63,4 +63,8 @@
     <string name="error_google_prompt_failed">Falha ao abrir login Google.</string>
     <string name="error_google_credential_type">Tipo de credencial Google invalido.</string>
     <string name="error_firebase_auth_failed">Falha na autenticacao do Firebase.</string>
+    <string name="error_name_required">Nome obrigatorio.</string>
+    <string name="toast_build_updated">Build atualizada com sucesso!</string>
+    <string name="toast_build_deleted">Build deletada.</string>
+    <string name="action_sign_in_google">Entrar com o Google</string>
 </resources>

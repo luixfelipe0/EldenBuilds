@@ -39,7 +39,7 @@ public class BuildDetailActivity extends AppCompatActivity {
                     this.currentBuild = updatedBuild;
                     populateUI(updatedBuild);
 
-                    Toast.makeText(this, "Build atualizada com sucesso!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.toast_build_updated, Toast.LENGTH_SHORT).show();
                 }
             }
     );
@@ -101,7 +101,7 @@ public class BuildDetailActivity extends AppCompatActivity {
                 .setMessage(R.string.dialog_delete_message)
                 .setPositiveButton(R.string.action_yes, (dialog, which) -> {
                     buildViewModel.delete(currentBuild);
-                    Toast.makeText(this, "Build deletada", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.toast_build_deleted, Toast.LENGTH_SHORT).show();
                     finish();
                 })
                 .setNegativeButton(R.string.action_no, null)

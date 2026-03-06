@@ -28,21 +28,30 @@ public class AddEditBuildActivity extends AppCompatActivity {
     private AutoCompleteTextView spinnerClass;
     private TextInputEditText editTextLevel;
 
-    // Stats
-    private TextInputEditText editVigor, editMind, editEndurance, editStrength,
-            editDexterity, editIntelligence, editFaith, editArcane;
+    private TextInputEditText editVigor;
+    private TextInputEditText editMind;
+    private TextInputEditText editEndurance;
+    private TextInputEditText editStrength;
+    private TextInputEditText editDexterity;
+    private TextInputEditText editIntelligence;
+    private TextInputEditText editFaith;
+    private TextInputEditText editArcane;
 
-    // Equipment
-    private AutoCompleteTextView editWeaponR, editWeaponL;
-    private AutoCompleteTextView editHelm, editChest, editHands, editLegs;
-    private AutoCompleteTextView editTal1, editTal2, editTal3, editTal4;
+    private AutoCompleteTextView editWeaponR;
+    private AutoCompleteTextView editWeaponL;
+    private AutoCompleteTextView editHelm;
+    private AutoCompleteTextView editChest;
+    private AutoCompleteTextView editHands;
+    private AutoCompleteTextView editLegs;
+    private AutoCompleteTextView editTal1;
+    private AutoCompleteTextView editTal2;
+    private AutoCompleteTextView editTal3;
+    private AutoCompleteTextView editTal4;
     private TextInputEditText editNotes;
 
     private MaterialButton buttonSave;
 
     private String currentBuildId = null;
-    private StartingClass currentClass = StartingClass.VAGABOND;
-
     private StartingClass currentSelectedClass = StartingClass.VAGABOND;
 
     @Override
@@ -65,7 +74,7 @@ public class AddEditBuildActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_BUILD)) {
-            Build buildToEdit = (Build) intent.getSerializableExtra(EXTRA_BUILD);
+            Build buildToEdit = getBuildExtra(intent);
             if (buildToEdit != null) {
                 currentBuildId = buildToEdit.getId();
                 populateForEdit(buildToEdit);
@@ -177,8 +186,11 @@ public class AddEditBuildActivity extends AppCompatActivity {
             classNames.add(startClass.getDisplayName());
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, classNames);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                classNames
+        );
 
         spinnerClass.setAdapter(adapter);
 
@@ -213,13 +225,17 @@ public class AddEditBuildActivity extends AppCompatActivity {
     private void setupAutoLevelCalculation() {
         TextWatcher statsWatcher = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 recalculateLevel();
             }
+
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         };
 
         editVigor.addTextChangedListener(statsWatcher);
@@ -245,21 +261,25 @@ public class AddEditBuildActivity extends AppCompatActivity {
         int arc = parseStat(editArcane, currentSelectedClass.baseArcane);
 
         int currentStatsSum = vig + min + end + str + dex + intl + fai + arc;
-
         int calculatedLevel = getCalculatedLevel(currentStatsSum);
 
         editTextLevel.setText(String.valueOf(calculatedLevel));
     }
 
     private int getCalculatedLevel(int currentStatsSum) {
-        int baseStatsSum = currentSelectedClass.baseVigor + currentSelectedClass.baseMind +
-                currentSelectedClass.baseEndurance + currentSelectedClass.baseStrength +
-                currentSelectedClass.baseDexterity + currentSelectedClass.baseIntelligence +
-                currentSelectedClass.baseFaith + currentSelectedClass.baseArcane;
+        int baseStatsSum = currentSelectedClass.baseVigor +
+                currentSelectedClass.baseMind +
+                currentSelectedClass.baseEndurance +
+                currentSelectedClass.baseStrength +
+                currentSelectedClass.baseDexterity +
+                currentSelectedClass.baseIntelligence +
+                currentSelectedClass.baseFaith +
+                currentSelectedClass.baseArcane;
 
         int calculatedLevel = currentSelectedClass.baseLevel + (currentStatsSum - baseStatsSum);
-
-        if (calculatedLevel < currentSelectedClass.baseLevel) calculatedLevel = currentSelectedClass.baseLevel;
+        if (calculatedLevel < currentSelectedClass.baseLevel) {
+            calculatedLevel = currentSelectedClass.baseLevel;
+        }
         return calculatedLevel;
     }
 
@@ -267,7 +287,7 @@ public class AddEditBuildActivity extends AppCompatActivity {
         String name = String.valueOf(editTextName.getText());
 
         if (name.trim().isEmpty()) {
-            editTextName.setError("Nome obrigatório");
+            editTextName.setError(getString(R.string.error_name_required));
             return;
         }
 
@@ -284,13 +304,11 @@ public class AddEditBuildActivity extends AppCompatActivity {
         Stats stats = new Stats(vigor, mind, endurance, strength, dexterity, intelligence, faith, arcane);
 
         Build newBuild = new Build(name, currentSelectedClass, level);
-
         if (currentBuildId != null) {
             newBuild.setId(currentBuildId);
         }
 
         newBuild.setStats(stats);
-
         newBuild.setRightHandWeapon(getTextSafe(editWeaponR));
         newBuild.setLeftHandWeapon(getTextSafe(editWeaponL));
         newBuild.setHeadArmor(getTextSafe(editHelm));
@@ -324,6 +342,16 @@ public class AddEditBuildActivity extends AppCompatActivity {
 
     private String getTextSafe(android.widget.EditText editText) {
         return editText.getText() != null ? editText.getText().toString().trim() : "";
+    }
+
+    @SuppressWarnings("deprecation")
+    private Build getBuildExtra(Intent intent) {
+        if (intent == null) return null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            return intent.getSerializableExtra(EXTRA_BUILD, Build.class);
+        }
+        Object extra = intent.getSerializableExtra(EXTRA_BUILD);
+        return extra instanceof Build ? (Build) extra : null;
     }
 
     @Override

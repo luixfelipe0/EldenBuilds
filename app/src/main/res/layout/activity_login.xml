@@ -19,7 +19,7 @@
         android:id="@+id/button_google_sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Entrar com o Google"
+        android:text="@string/action_sign_in_google"
         android:padding="12dp"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
