@@ -151,7 +151,7 @@ Note:
 - No CI pipeline configured in the repository.
 - Firestore rules are not yet documented/versioned in-project.
 
-## Suggested Next Steps (for your validation)
+## Next Steps
 
 1. **Define and version Firestore security rules**
    - Goal: prevent cross-user read/write access.
@@ -176,7 +176,3 @@ Note:
 6. **Plan architecture evolution**
    - Goal: better responsibility boundaries (use cases + DI).
    - Deliverable: incremental proposal (no big-bang), starting with Auth and Builds.
-
----
-
-If you approve the order, the next cycle should start with item 1 (Firestore rules), because it is the highest real risk right now.
