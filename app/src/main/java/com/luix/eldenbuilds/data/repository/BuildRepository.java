@@ -71,6 +71,11 @@ public class BuildRepository {
     public void update(Build build) {
         if (build == null || build.getId() == null) return;
 
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            build.setAuthorId(currentUser.getUid());
+        }
+
         buildsRef.document(build.getId()).set(build)
                 .addOnFailureListener(e -> Log.e("BuildRepository", "Erro na atualização", e));
     }
@@ -82,3 +87,4 @@ public class BuildRepository {
                 .addOnFailureListener(e -> Log.e("BuildRepository", "Erro na exclusão", e));
     }
 }
+
