@@ -12,12 +12,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.luix.eldenbuilds.EldenBuildsApp;
 import com.luix.eldenbuilds.R;
+import com.luix.eldenbuilds.core.result.UiState;
 import com.luix.eldenbuilds.data.model.Build;
+import com.luix.eldenbuilds.domain.usecase.GetUserBuildsUseCase;
+import com.luix.eldenbuilds.feature.builds.presentation.factory.BuildViewModelFactory;
 import com.luix.eldenbuilds.ui.adapter.BuildAdapter;
 import com.luix.eldenbuilds.ui.detail.AddEditBuildActivity;
 import com.luix.eldenbuilds.ui.detail.BuildDetailActivity;
 import com.luix.eldenbuilds.ui.viewmodel.BuildViewModel;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,8 +70,24 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        buildViewModel = new ViewModelProvider(this).get(BuildViewModel.class);
-        buildViewModel.getAllBuilds().observe(this, adapter::submitList);
+        EldenBuildsApp app = (EldenBuildsApp) getApplication();
+        GetUserBuildsUseCase getUserBuildsUseCase = new GetUserBuildsUseCase(app.appContainer.buildRepository);
+        BuildViewModelFactory factory = new BuildViewModelFactory(getUserBuildsUseCase, app.appContainer.buildRepository);
+        buildViewModel = new ViewModelProvider(this, factory).get(BuildViewModel.class);
+
+
+        buildViewModel.getUiState().observe(this, state -> {
+            if (state instanceof UiState.Loading) {
+                //show progress bar
+            } else if (state instanceof UiState.Success) {
+                adapter.submitList(((UiState.Success<List<Build>>) state).getData());
+            } else if (state instanceof UiState.Empty) {
+                //show empty state
+            } else if (state instanceof UiState.Error) {
+                String msg = ((UiState.Error<List<Build>>) state).getError().getMessage();
+                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @SuppressWarnings("deprecation")
