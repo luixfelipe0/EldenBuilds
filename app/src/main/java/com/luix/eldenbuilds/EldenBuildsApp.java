@@ -1,4 +1,16 @@
 package com.luix.eldenbuilds;
 
-public class EldenBuildsApp {
+import android.app.Application;
+
+import com.luix.eldenbuilds.core.di.AppContainer;
+
+public class EldenBuildsApp extends Application {
+
+    public AppContainer appContainer;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        appContainer = new AppContainer();
+    }
 }
